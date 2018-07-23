@@ -45,6 +45,11 @@ const browserConfig = {
   plugins: [
     new ExtractTextPlugin({
       filename: "public/css/[name].css"
+    }),
+    new webpack.BannerPlugin({
+      banner: "__isBrowser__ = true;",
+      raw: true,
+      include: /\.js$/
     })
   ]
 };
@@ -84,7 +89,14 @@ const serverConfig = {
         query: { presets: ["react-app"] }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.BannerPlugin({
+      banner: "__isBrowser__ = false;",
+      raw: true,
+      include: /\.js$/
+    })
+  ]
 };
 
 module.exports = [browserConfig, serverConfig];
